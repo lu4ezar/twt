@@ -1,17 +1,17 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const { model, Schema } = mongoose;
 
 const TwitSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
   },
   content: {
     operation: {
       type: String,
-      enum: ['add', 'sub', 'mult', 'div'],
-      default: 'add',
+      enum: ["add", "sub", "mult", "div"],
+      default: "add",
     },
     number: {
       type: Number,
@@ -23,7 +23,7 @@ const TwitSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
-  replies: { type: [Schema.Types.ObjectId], ref: 'Twit', default: [] },
+  replies: { type: [Schema.Types.ObjectId], ref: "Twit", default: [] },
   // replies: {
   //   type: [this],
   //   lean: true,
@@ -35,14 +35,14 @@ const TwitSchema = new Schema({
   // },
 });
 
-TwitSchema.pre('find', async function populateReplies() {
-  await this.populate('replies');
+TwitSchema.pre("find", async function populateReplies() {
+  await this.populate("replies");
 });
 
-TwitSchema.virtual('repliesPopulated', {
-  ref: 'Twit',
-  localField: 'parent',
-  foreignField: '_id',
+TwitSchema.virtual("repliesPopulated", {
+  ref: "Twit",
+  localField: "parent",
+  foreignField: "_id",
 });
 
-export default model('Twit', TwitSchema);
+export default model("Twit", TwitSchema);

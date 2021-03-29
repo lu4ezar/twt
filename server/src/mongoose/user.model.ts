@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs';
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 // import { validate } from 'isemail';
-import { IUser } from './user.interface';
-import Twit from './twit.model';
+import { IUser } from "./user.interface";
+// import Twit from './twit.model';
 
 const { model, Schema } = mongoose;
 
@@ -11,10 +11,10 @@ const UserSchema = new Schema({
   password: String,
 });
 
-UserSchema.virtual('twits', {
-  ref: 'Twit',
-  localField: '_id',
-  foreignField: 'author',
+UserSchema.virtual("twits", {
+  ref: "Twit",
+  localField: "_id",
+  foreignField: "author",
 });
 
 // UserSchema.pre<IUser>('save', async function () {
@@ -35,8 +35,11 @@ UserSchema.virtual('twits', {
 //   }
 // });
 
-UserSchema.methods.validatePassword = async function (this, candidate) {
+UserSchema.methods.validatePassword = async function validatePassword(
+  this,
+  candidate
+) {
   return bcrypt.compare(candidate, (this as IUser).password);
 };
 
-export default model<IUser>('User', UserSchema);
+export default model<IUser>("User", UserSchema);

@@ -1,4 +1,5 @@
 import { ApolloServer, gql } from 'apollo-server-express';
+import { createTestClient } from 'apollo-server-testing';
 import twitAPI from './graphql/datasources/twit';
 import userAPI from './graphql/datasources/user';
 import TwitModel from './mongoose/twit.model';
@@ -7,10 +8,8 @@ import userTypeDefs from './graphql/typeDefs/user';
 import twitTypeDefs from './graphql/typeDefs/twit';
 import userResolvers from './graphql/resolvers/user';
 import twitResolvers from './graphql/resolvers/twit';
-import { schema } from './graphql/schema';
+import schema from './graphql/schema';
 import dataSources from './graphql/datasources';
-
-import { createTestClient } from 'apollo-server-testing';
 
 const createApolloServer = () => {
   // const typeDefs = gql`
@@ -35,8 +34,8 @@ const createApolloServer = () => {
   return new ApolloServer({
     dataSources,
     schema,
-    //typeDefs: [userTypeDefs, twitTypeDefs],
-    //resolvers: [userResolvers, twitResolvers],
+    // typeDefs: [userTypeDefs, twitTypeDefs],
+    // resolvers: [userResolvers, twitResolvers],
   });
 };
 

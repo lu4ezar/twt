@@ -4,7 +4,7 @@ import express from 'express';
 // import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import { schema } from './graphql/schema';
+import schema from './graphql/schema';
 // import userTypeDefs from './graphql/typeDefs/user';
 // import twitTypeDefs from './graphql/typeDefs/twit';
 // import { permissions } from './graphql/permissions';
