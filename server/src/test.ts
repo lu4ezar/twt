@@ -1,46 +1,32 @@
-import { ApolloServer, gql } from 'apollo-server-express';
-import { createTestClient } from 'apollo-server-testing';
-import twitAPI from './graphql/datasources/twit';
-import userAPI from './graphql/datasources/user';
-import TwitModel from './mongoose/twit.model';
-import UserModel from './mongoose/user.model';
-import userTypeDefs from './graphql/typeDefs/user';
-import twitTypeDefs from './graphql/typeDefs/twit';
-import userResolvers from './graphql/resolvers/user';
-import twitResolvers from './graphql/resolvers/twit';
-import schema from './graphql/schema';
-import dataSources from './graphql/datasources';
+import { ApolloServer, gql } from "apollo-server-express";
+import { createTestClient } from "apollo-server-testing";
+import twitAPI from "./graphql/datasources/twit";
+import userAPI from "./graphql/datasources/user";
+import TwitModel from "./mongoose/twit.model";
+import UserModel from "./mongoose/user.model";
+import userTypeDefs from "./graphql/typeDefs/user";
+import twitTypeDefs from "./graphql/typeDefs/twit";
+import userResolvers from "./graphql/resolvers/user";
+import twitResolvers from "./graphql/resolvers/twit";
+import schema from "./graphql/schema";
+import dataSources from "./graphql/datasources";
+
+const twitts = [{ operation: "add", number: 123 }];
 
 const createApolloServer = () => {
-  // const typeDefs = gql`
-  //   type User {
-  //     login: String!
-  //     password: String!
-  //   }
-  //   type Twit {
-  //     operation: String!
-  //     number: Float!
-  //   }
-  //   type Query {
-  //     twits: [Twit!]!
-  //   }
-  // `;
-  const twitts = [{ operation: 'add', number: 123 }];
-  // const resolvers = {
-  //   Query: {
-  //     twits: () => twits,
-  //   },
-  // };
   return new ApolloServer({
-    dataSources,
+    /* dataSources: () => ({
+	    twitAPI(): jest.fn()
+    }), */
     schema,
-    // typeDefs: [userTypeDefs, twitTypeDefs],
-    // resolvers: [userResolvers, twitResolvers],
+    typeDefs: [userTypeDefs, twitTypeDefs],
+    resolvers: [userResolvers, twitResolvers],
+    mocks: true,
   });
 };
 
-describe('twits', () => {
-  it('should return twitts', async () => {
+describe("twits", () => {
+  it("should return twitts", async () => {
     const server = createApolloServer();
     const { query } = createTestClient(server);
 
@@ -57,12 +43,12 @@ describe('twits', () => {
 		`;
 
     const response = await query({ query: GET_TWITTS });
-    console.log('JSON.stringify(response)');
-    console.log(JSON.stringify(response));
+    // console.log('JSON.stringify(response)');
+    // console.log(JSON.stringify(response));
     expect(response.data?.twitts).toEqual([
       {
         content: {
-          operation: 'add',
+          operation: "add",
           number: 123,
         },
       },

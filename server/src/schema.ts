@@ -1,6 +1,6 @@
-import { model, Schema } from 'mongoose';
-import { composeMongoose } from 'graphql-compose-mongoose';
-import { schemaComposer } from 'graphql-compose';
+import { model, Schema } from "mongoose";
+import { composeMongoose } from "graphql-compose-mongoose";
+import { schemaComposer } from "graphql-compose";
 
 const UserSchema = new Schema({
   login: { type: String, unique: true },
@@ -10,13 +10,13 @@ const UserSchema = new Schema({
 const TwitSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
   },
   content: {
     operation: {
       type: String,
-      enum: ['add', 'sub', 'mult', 'div'],
-      default: 'add',
+      enum: ["add", "sub", "mult", "div"],
+      default: "add",
     },
     number: {
       type: Number,
@@ -34,7 +34,7 @@ const TwitSchema = new Schema({
     default: null,
   },
 });
-const Twit = model('Twit', TwitSchema);
+const Twit = model("Twit", TwitSchema);
 
 UserSchema.post(/delete/i, async function (user) {
   try {
@@ -44,7 +44,7 @@ UserSchema.post(/delete/i, async function (user) {
   }
 });
 
-const User = model('User', UserSchema);
+const User = model("User", UserSchema);
 
 const customizationOptions = {};
 const UserTC = composeMongoose(User, customizationOptions);
@@ -66,7 +66,7 @@ schemaComposer.Mutation.addFields({
   twitCreateOne: TwitTC.mongooseResolvers.createOne(),
 });
 
-TwitTC.addRelation('author', {
+TwitTC.addRelation("author", {
   resolver: () => UserTC.mongooseResolvers.findById(),
   prepareArgs: {
     _id: (source) => source.author,
@@ -74,7 +74,7 @@ TwitTC.addRelation('author', {
   projection: { author: 1 },
 });
 
-TwitTC.addRelation('replies', {
+TwitTC.addRelation("replies", {
   resolver: () => TwitTC.mongooseResolvers.findById(),
   prepareArgs: {
     _id: (source) => source.replies,

@@ -1,23 +1,21 @@
-import { Resolvers, Twit } from '../../generated/graphql';
+import { Resolvers, Twit } from "../../generated/graphql";
 
 const resolvers: Resolvers = {
   Query: {
-    twitts: async (_, __, { dataSources }): Promise<Twit[]> =>
-      await dataSources.twitAPI.getTwitts(),
+    twitts: (_, __, { dataSources }): Promise<Twit[]> =>
+      dataSources.twitAPI.getTwitts(),
     replies: (_, { id }, { dataSources }): Twit[] =>
       dataSources.twitAPI.getTwitts({ id }),
   },
   Mutation: {
-    postTwit: (parent, { input }, { dataSources, user }): Twit => {
-      console.log(parent);
-      console.log(user);
+    postTwit: (parent, { input }, { dataSources}): Twit => {
       return dataSources.twitAPI.postTwit({
         ...input,
         author: input.author,
         root: null,
       });
     },
-    postReply: (_, { input }, { dataSources, user }): Twit =>
+    postReply: (_, { input }, { dataSources }): Twit =>
       dataSources.twitAPI.postReply({
         ...input,
         author: input.author,

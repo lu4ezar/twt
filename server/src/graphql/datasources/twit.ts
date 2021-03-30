@@ -1,12 +1,12 @@
-import { DataSource } from 'apollo-datasource';
-import { Collection } from 'mongoose';
-import { ITwit } from '../../mongoose/twit.interface';
-import { IUser } from '../../mongoose/user.interface';
-import Twit from '../../mongoose/twit.model';
-import { PostReplyInput, PostTwitInput } from '../../generated/graphql';
+import { DataSource } from "apollo-datasource";
+import { Collection } from "mongoose";
+import { ITwit } from "../../mongoose/twit.interface";
+import Twit from "../../mongoose/twit.model";
+import { PostReplyInput, PostTwitInput } from "../../generated/graphql";
 
 export default class TwitAPI extends DataSource {
   collection: Collection;
+
   constructor(collection: Collection) {
     super();
     this.collection = collection;
@@ -14,8 +14,9 @@ export default class TwitAPI extends DataSource {
 
   // Queries
   async getTwitts(): Promise<Array<ITwit>> {
-    let res = await Twit.find({ root: null })
-      .populate('repliesPopulated')
+    const res = await this.model
+      .find({ root: null })
+      .populate("repliesPopulated")
       .exec();
     // res = await res;
     // .exec(function (error: any, parents: any) {
@@ -25,20 +26,19 @@ export default class TwitAPI extends DataSource {
     //   console.log(parents);
     //   /// parents.children is now an array of instances of Child.
     // });
-    console.log('res: ');
-    console.log(res);
     return res;
   }
 
-  async getReplies(_id: ITwit['id']): Promise<ITwit> {
-    return (await Twit.find({ root: _id })) as ITwit;
+  async getReplies(_id: ITwit["id"]): Promise<ITwit> {
+    return (await this.model.find({ root: _id })) as ITwit;
   }
 
   // Mutations
   async postTwit(input: PostTwitInput): Promise<ITwit> {
     const twit = new Twit(input) as ITwit;
-    return await twit.save();
+    return twit.save();
   }
+
   async postReply(input: PostReplyInput): Promise<ITwit> {
     const twit = await Twit.find({ _id: input.parent });
     const reply = new Twit(input) as ITwit;
