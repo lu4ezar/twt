@@ -33,9 +33,10 @@
 		"graphql-compose-pagination": "^8.0.2",
 		"graphql-middleware": "^6.0.5",
 		"graphql-shield": "^7.5.0",
+		"graphql-tag": "^2.11.0",
 		"jsonwebtoken": "^8.5.1",
+		"mongodb": "^3.6.5",
 		"mongoose": "^5.12.2",
-		"prettier": "^2.2.1",
 		"typescript": "^4.2.3"
 	},
 	"devDependencies": {
@@ -54,8 +55,12 @@
 		"apollo-server-testing": "^2.22.1",
 		"eslint": "^7.23.0",
 		"eslint-config-airbnb-base": "^14.2.1",
+		"eslint-config-airbnb-typescript": "^12.3.1",
+		"eslint-config-airbnb-typescript-prettier": "^4.2.0",
 		"eslint-config-prettier": "^8.1.0",
 		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-jest": "^24.3.2",
+		"eslint-plugin-node": "^11.1.0",
 		"eslint-plugin-prettier": "^3.3.1",
 		"graphql-query-test-mock": "^0.12.1",
 		"jest": "^26.6.3",
@@ -63,6 +68,7 @@
 		"msw": "^0.28.0",
 		"nock": "^13.0.11",
 		"nodemon": "^2.0.7",
+		"prettier": "^2.2.1",
 		"ts-jest": "^26.5.4",
 		"ts-node": "^9.1.1"
 	}
