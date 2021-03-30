@@ -1,4 +1,10 @@
-import { ApolloClient, from, HttpLink, InMemoryCache } from '@apollo/client';
+import {
+  ApolloClient,
+  from,
+  HttpLink,
+  InMemoryCache,
+  makeVar,
+} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 const URI_PATH = 'http://localhost:4000/graphql';
@@ -17,8 +23,30 @@ const httpLink = new HttpLink({
   uri: URI_PATH,
 });
 
+export const isLoggedInVar = makeVar(!!localStorage.getItem('token'));
+export const errorVar = makeVar<string | null>(null);
+
+const cache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        isLoggedIn: {
+          read() {
+            return isLoggedInVar();
+          },
+        },
+        errorVar: {
+          read() {
+            return errorVar();
+          },
+        },
+      },
+    },
+  },
+});
+
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache,
   link: from([authLink, httpLink]),
 });
 
