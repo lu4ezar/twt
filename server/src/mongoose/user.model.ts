@@ -17,23 +17,15 @@ UserSchema.virtual("twits", {
   foreignField: "author",
 });
 
-// UserSchema.pre<IUser>('save', async function () {
-//   if (!this.isModified('password')) return;
-//   try {
-//     const salt = await bcrypt.genSalt(10);
-//     this.password = await bcrypt.hash(this.password, salt);
-//   } catch (err) {
-//     return err;
-//   }
-// });
-
-// UserSchema.post<IUser>(/delete/i, async function (user) {
-//   try {
-//     return await Twit.deleteMany({ owner: user._id });
-//   } catch (err) {
-//     console.log(`Error: ${err.message}`);
-//   }
-// });
+UserSchema.pre<IUser>('save', async function () {
+  if (!this.isModified('password')) return;
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+  } catch (err) {
+    return err;
+  }
+});
 
 UserSchema.methods.validatePassword = async function validatePassword(
   this,

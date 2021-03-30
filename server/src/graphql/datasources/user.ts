@@ -1,12 +1,8 @@
-import { DataSource } from "apollo-datasource";
-import { Collection } from "mongoose";
-import jwt from "jsonwebtoken";
-import {
-  AuthPayload,
-  AuthUserInput,
-  CreateUserInput,
-} from "../../generated/graphql";
-import User from "../../mongoose/user.model";
+import { DataSource } from 'apollo-datasource';
+import { Collection } from 'mongoose';
+import jwt from 'jsonwebtoken';
+import { AuthPayload, UserInput } from '../../generated/graphql';
+import User from '../../mongoose/user.model';
 
 export default class UserAPI extends DataSource {
   collection: Collection;
@@ -17,25 +13,22 @@ export default class UserAPI extends DataSource {
   }
 
   // Mutations
-  async createUser(input: CreateUserInput): Promise<AuthPayload> {
-    const user = new User(input);
-    await user.save();
-    const token = jwt.sign(user.toJSON(), process.env.SECRET || "");
-    return { token };
-  }
-
-  async authUser(input: AuthUserInput): Promise<AuthPayload> {
-    const { login, password } = input;
-    const user = await User.findOne({ login });
-    if (!user) {
-      throw new Error("User not found");
+  async loginUser({ login, password }: UserInput): Promise<AuthPayload> {
+    let user;
+    const existingUser = await User.findOne({
+      login,
+    });
+    if (existingUser) {
+      const passMatch = await existingUser.validatePassword(password);
+      if (!passMatch) {
+        throw new Error('Incorrect password');
+      }
+      user = existingUser;
+    } else {
+      user = new User({ login, password });
+      await user.save();
     }
-
-    const passMatch = user.validatePassword(password);
-    if (!passMatch) {
-      throw new Error("Incorrect password");
-    }
-    const token = jwt.sign(user.toJSON(), process.env.SECRET || "");
+    const token = jwt.sign(user.toJSON(), process.env.SECRET || '');
     return { token };
   }
 }
