@@ -1,9 +1,8 @@
-import React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useApolloClient, useQuery, useReactiveVar } from '@apollo/client';
 import Twitts from '../Twitts';
 import './App.css';
 import Login from '../Login';
-import { useGetUserFromToken } from '../../apollo/hooks/user';
+import { isLoggedInVar } from '../../apollo';
 
 const FETCH_TWITTS = gql`
   query GetTwitts {
@@ -18,12 +17,15 @@ const FETCH_TWITTS = gql`
 `;
 
 function App() {
-  // React.useEffect(() => {
-  // 	window.addEventListener(())
-  // })
-
-  const user = useGetUserFromToken();
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
   const { loading, data: { twitts = [] } = {}, error } = useQuery(FETCH_TWITTS);
+  const client = useApolloClient();
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    isLoggedInVar(false);
+    client.resetStore();
+  };
 
   if (loading) {
     return <div>LOADING</div>;
@@ -32,11 +34,18 @@ function App() {
   if (error) {
     return <div>Error! {error.message}</div>;
   }
+
   return (
     <div className='App'>
       <nav className='App-header'>
         <header>Twittulator</header>
-        {user ? <div>{user}</div> : <Login />}
+        {isLoggedIn ? (
+          <div>
+            <button onClick={() => logout()}>LOGOUT</button>
+          </div>
+        ) : (
+          <Login />
+        )}
       </nav>
       <main
         style={{
