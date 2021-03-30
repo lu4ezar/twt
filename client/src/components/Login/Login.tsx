@@ -1,53 +1,53 @@
 import React from 'react';
-import Modal from 'react-modal';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { AuthUserInput } from '../../generated/graphql';
+import { UserInput } from '../../generated/graphql';
+import { useLoginMutation } from '../../apollo/hooks/user';
 
-const initialValues: AuthUserInput = {
+const initialValues: UserInput = {
   login: '',
   password: '',
 };
 
-Modal.setAppElement('#root');
-
 const Login = () => {
-  // var subtitle: { style: { color: string } };
-  console.log('login');
-  const [modalIsOpen, setIsOpen] = React.useState(true);
-  function afterOpenModal() {
-    console.log('after open');
-  }
-  function closeModal() {
-    setIsOpen(false);
-  }
-  const onSubmit = (values: any, { setSubmitting }: any) => {
-    console.log(values);
-    setSubmitting(true);
-    // setIsLoggedIn(false);
-    closeModal();
+  const { loginUser } = useLoginMutation();
+  const [isFormVisible, setFormVisible] = React.useState(false);
+
+  const onSubmit = async (values: UserInput) => {
+    const { login, password } = values;
+    const variables = {
+      input: {
+        login,
+        password,
+      },
+    };
+    try {
+      await loginUser({
+        variables,
+      });
+      setFormVisible(false);
+    } catch (err) {
+      throw new Error(err);
+    }
   };
-  return (
-    <Modal
-      isOpen={modalIsOpen}
-      onAfterOpen={afterOpenModal}
-      onRequestClose={closeModal}
-      //style={customStyles}
-      contentLabel='Example Modal'
-    >
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
-        {({ isSubmitting }) => (
-          <Form>
-            <Field type='login' name='login' />
-            <ErrorMessage name='login' component='div' />
-            <Field type='password' name='password' />
-            <ErrorMessage name='password' component='div' />
-            <button type='submit' disabled={isSubmitting}>
-              Okay
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </Modal>
+
+  return isFormVisible ? (
+    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+      {({ isSubmitting }) => (
+        <Form>
+          <Field type='login' name='login' />
+          <ErrorMessage name='login' component='div' />
+          <Field type='password' name='password' />
+          <ErrorMessage name='password' component='div' />
+          <button type='submit' disabled={isSubmitting}>
+            Submit
+          </button>
+        </Form>
+      )}
+    </Formik>
+  ) : (
+    <button onClick={() => setFormVisible(true)} disabled={isFormVisible}>
+      Login
+    </button>
   );
 };
 
