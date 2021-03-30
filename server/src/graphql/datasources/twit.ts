@@ -1,8 +1,8 @@
-import { DataSource } from "apollo-datasource";
-import { Collection } from "mongoose";
-import { ITwit } from "../../mongoose/twit.interface";
-import Twit from "../../mongoose/twit.model";
-import { PostReplyInput, PostTwitInput } from "../../generated/graphql";
+import { DataSource } from 'apollo-datasource';
+import { Collection } from 'mongoose';
+import { ITwit } from '../../mongoose/twit.interface';
+import Twit from '../../mongoose/twit.model';
+import { PostReplyInput, PostTwitInput } from '../../generated/graphql';
 
 export default class TwitAPI extends DataSource {
   collection: Collection;
@@ -14,10 +14,12 @@ export default class TwitAPI extends DataSource {
 
   // Queries
   async getTwitts(): Promise<Array<ITwit>> {
-    const res = await this.model
-      .find({ root: null })
-      .populate("repliesPopulated")
-      .exec();
+    // console.log(this);
+    const res = await Twit.find({ root: null });
+
+    // console.log(res);
+    // .populate("repliesPopulated")
+    // .exec();
     // res = await res;
     // .exec(function (error: any, parents: any) {
     //   console.log('error');
@@ -26,11 +28,11 @@ export default class TwitAPI extends DataSource {
     //   console.log(parents);
     //   /// parents.children is now an array of instances of Child.
     // });
-    return res;
+    return [];
   }
 
-  async getReplies(_id: ITwit["id"]): Promise<ITwit> {
-    return (await this.model.find({ root: _id })) as ITwit;
+  async getReplies(_id: ITwit['id']): Promise<ITwit> {
+    return (await Twit.find({ root: _id })) as ITwit;
   }
 
   // Mutations
@@ -40,14 +42,14 @@ export default class TwitAPI extends DataSource {
   }
 
   async postReply(input: PostReplyInput): Promise<ITwit> {
-    const twit = await Twit.find({ _id: input.parent });
+    // const twit = await Twit.find({ _id: input.parent });
     const reply = new Twit(input) as ITwit;
-    twit.save(async function (err: Error) {
-      if (err) {
-        throw new Error(err.message);
-      }
-      await reply.save();
-    });
+    // twit.save(async (err: Error) => {
+    // if (err) {
+    // throw new Error(err.message);
+    // }
+    await reply.save();
+    // });
     return reply;
     // const twit = new Twit(input) as ITwit;
     // return await twit.save();
