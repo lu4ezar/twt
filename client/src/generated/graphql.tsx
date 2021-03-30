@@ -18,23 +18,12 @@ export type AuthPayload = {
   token: Scalars['String'];
 };
 
-export type AuthUserInput = {
-  login: Scalars['String'];
-  password: Scalars['String'];
-};
-
-export type CreateUserInput = {
-  login: Scalars['String'];
-  password: Scalars['String'];
-};
-
 
 export type Mutation = {
   __typename?: 'Mutation';
   postTwit: Twit;
   postReply: Twit;
-  createUser: AuthPayload;
-  authUser: AuthPayload;
+  loginUser: AuthPayload;
 };
 
 
@@ -48,13 +37,8 @@ export type MutationPostReplyArgs = {
 };
 
 
-export type MutationCreateUserArgs = {
-  input: CreateUserInput;
-};
-
-
-export type MutationAuthUserArgs = {
-  input: AuthUserInput;
+export type MutationLoginUserArgs = {
+  input: UserInput;
 };
 
 export type PostReplyInput = {
@@ -107,6 +91,11 @@ export type TwitInput = {
 export type User = {
   __typename?: 'User';
   _id: Scalars['ID'];
+  login: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type UserInput = {
   login: Scalars['String'];
   password: Scalars['String'];
 };

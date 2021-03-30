@@ -1,4 +1,4 @@
-import { gql } from "apollo-server-express";
+import { gql } from 'apollo-server-express';
 
 export default gql`
   """
@@ -11,20 +11,14 @@ export default gql`
   }
 
   extend type Mutation {
-    createUser(input: CreateUserInput!): AuthPayload!
-    authUser(input: AuthUserInput!): AuthPayload!
+    loginUser(input: UserInput!): AuthPayload!
   }
 
   type AuthPayload {
     token: String!
   }
 
-  input CreateUserInput {
-    login: String!
-    password: String!
-  }
-
-  input AuthUserInput {
+  input UserInput {
     login: String!
     password: String!
   }
