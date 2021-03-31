@@ -19,8 +19,8 @@ export default class TwitAPI extends DataSource {
     return twitts;
   }
 
-  async getReplies(_id: ITwit['id']): Promise<Array<ITwit>> {
-    const replies = await Twit.find({ parent: _id }).populate({
+  async getReplies(id: ITwit['id']): Promise<Array<ITwit>> {
+    const replies = await Twit.find({ parent: id }).populate({
       path: 'replies',
       populate: { path: 'replies' },
     });
