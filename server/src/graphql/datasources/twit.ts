@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { DataSource } from 'apollo-datasource';
 import { Collection } from 'mongoose';
 import { ITwit } from '../../mongoose/twit.interface';
