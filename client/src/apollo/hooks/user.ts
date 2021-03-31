@@ -16,7 +16,7 @@ export const useLoginMutation = () => {
         const {
           loginUser: { token },
         } = data;
-        localStorage.setItem('token', JSON.stringify(token));
+        localStorage.setItem('token', token);
         isLoggedInVar(true);
       }
     },
