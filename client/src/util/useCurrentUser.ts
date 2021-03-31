@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import { User } from './generated/graphql';
+import { User } from '../generated/graphql';
 import jwt_decode, { JwtPayload } from 'jwt-decode';
+import { useApolloClient } from '@apollo/client';
 
 type IUser = User | null;
 
-export default function useCurrentUser() {
+export const useCurrentUser = () => {
   const getUser = (): IUser => {
-    const tokenStr = localStorage.getItem('token');
-    if (!tokenStr) {
+    const token = localStorage.getItem('token');
+    if (!token) {
       return null;
     }
-    const token = JSON.parse(tokenStr);
     const user = jwt_decode<JwtPayload>(token) as User;
     return user;
   };
@@ -21,4 +21,10 @@ export default function useCurrentUser() {
     setUser,
     user,
   };
-}
+};
+
+export const useGetAnswers = () => {
+  const client = useApolloClient();
+  const data = client.cache;
+  return data;
+};
