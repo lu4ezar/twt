@@ -21,7 +21,7 @@ const server = new ApolloServer({
 
     try {
       if (req && req.headers.authorization) {
-        const token = (req.headers.token as string).split(' ')[1] || '';
+        const token = (req.headers.authorization as string).split(' ')[1] || '';
         user = jwt.verify(token, process.env.SECRET as string);
         return { db, res, user };
       }
@@ -30,6 +30,7 @@ const server = new ApolloServer({
     }
     return { db, res, user: null };
   },
+  introspection: true,
 });
 
 export default server;
