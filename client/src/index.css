@@ -19,6 +19,20 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+li {
+  border: 2px solid #4899e6;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 25vh;
+  min-width: 25vh;
+
+  justify-content: space-around;
 }
 
 button {
