@@ -1,24 +1,13 @@
-import { gql, useApolloClient, useQuery, useReactiveVar } from '@apollo/client';
+import { useApolloClient, useQuery, useReactiveVar } from '@apollo/client';
 import Twitts from '../Twitts';
 import './App.css';
 import Login from '../Login';
 import { isLoggedInVar } from '../../apollo';
-
-const FETCH_TWITTS = gql`
-  query GetTwitts {
-    twitts {
-      author
-      content {
-        operation
-        number
-      }
-    }
-  }
-`;
+import { GET_TWITTS } from '../../apollo/hooks/twit';
 
 function App() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
-  const { loading, data: { twitts = [] } = {}, error } = useQuery(FETCH_TWITTS);
+  const { loading, data: { twitts = [] } = {}, error } = useQuery(GET_TWITTS);
   const client = useApolloClient();
 
   const logout = () => {
@@ -50,6 +39,7 @@ function App() {
       <main
         style={{
           flexGrow: 1,
+          width: '100%',
         }}
       >
         <Twitts twitts={twitts} />
