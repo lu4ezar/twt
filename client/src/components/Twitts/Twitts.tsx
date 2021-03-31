@@ -1,13 +1,20 @@
-import React from 'react';
+import { isLoggedInVar } from '../../apollo';
 import { Twit as ITwit } from '../../generated/graphql';
-import Twit from '../Twit';
+import TwitCard from '../TwitCard';
+import TwitForm from '../TwitForm';
 
-const Twitts = ({ twitts }: { twitts: ITwit[] }) => (
-  <ul>
-    {twitts.map((twit) => (
-      <Twit key={twit._id} twit={twit} />
-    ))}
-  </ul>
-);
+const Twitts = ({ twitts }: { twitts: ITwit[] }) => {
+  const isLoggedIn = isLoggedInVar();
+  return (
+    <div>
+      {isLoggedIn && <TwitForm />}
+      <ul>
+        {twitts.map((twit) => (
+          <TwitCard key={twit._id} twit={twit} isLoggedIn={isLoggedIn} />
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 export default Twitts;
