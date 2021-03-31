@@ -1,18 +1,18 @@
-import { rule, shield, allow } from "graphql-shield";
+import { rule, shield, allow } from 'graphql-shield';
 
-const isAuthenticated = rule({ cache: "contextual" })(
-  (_, __, ctx) => ctx.user != null
+const isAuthenticated = rule({ cache: 'contextual' })(
+  (_, __, ctx) => ctx.user != null,
 );
-
-// const isAuthorized = rule({ cache: 'strict' })((_, __, ctx) => !!ctx.user.login);s
 
 const permissions = shield({
   Query: {
-    "*": allow,
+    '*': allow,
   },
 
   Mutation: {
-    "*": isAuthenticated,
+    loginUser: allow,
+    postTwit: isAuthenticated,
+    postReply: isAuthenticated,
   },
 });
 
