@@ -7,16 +7,20 @@ const resolvers: Resolvers = {
       dataSources.twitAPI.getReplies(id),
   },
   Mutation: {
-    postTwit: (_, { input }, { dataSources }): Twit =>
+    postTwit: (_, { input: { author, content } }, { dataSources }): Twit =>
       dataSources.twitAPI.postTwit({
-        ...input,
-        author: input.author,
+        author,
+        content,
       }),
-    postReply: (_, { input }, { dataSources }): Twit =>
+    postReply: (
+      _,
+      { input: { author, parent, content } },
+      { dataSources },
+    ): Twit =>
       dataSources.twitAPI.postReply({
-        ...input,
-        author: input.author,
-        parent: input.parent,
+        author,
+        parent,
+        content,
       }),
   },
 };
