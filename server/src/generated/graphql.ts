@@ -28,6 +28,12 @@ export type AuthPayload = {
   token: Scalars['String'];
 };
 
+export type Content = {
+  __typename?: 'Content';
+  operation?: Maybe<Operation>;
+  number: Scalars['Float'];
+};
+
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -51,11 +57,18 @@ export type MutationLoginUserArgs = {
   input: UserInput;
 };
 
+/** Twit Type */
+export enum Operation {
+  Add = 'ADD',
+  Sub = 'SUB',
+  Mult = 'MULT',
+  Div = 'DIV'
+}
+
 export type PostReplyInput = {
   author: Scalars['ID'];
-  root: Scalars['ID'];
   parent: Scalars['ID'];
-  content: TwitInput;
+  content: ReplyInput;
 };
 
 export type PostTwitInput = {
@@ -74,26 +87,22 @@ export type QueryRepliesArgs = {
   id: Scalars['ID'];
 };
 
+export type ReplyInput = {
+  operation: Operation;
+  number: Scalars['Float'];
+};
+
 export type Twit = {
   __typename?: 'Twit';
   _id: Scalars['ID'];
   author: Scalars['ID'];
-  content: TwitContent;
-  root?: Maybe<Scalars['Float']>;
+  content: Content;
   createdAt: Scalars['DateTime'];
   replies: Array<Twit>;
   parent: Scalars['ID'];
 };
 
-/** Twit Type */
-export type TwitContent = {
-  __typename?: 'TwitContent';
-  operation?: Maybe<Scalars['String']>;
-  number: Scalars['Float'];
-};
-
 export type TwitInput = {
-  operation: Scalars['String'];
   number: Scalars['Float'];
 };
 
@@ -195,15 +204,17 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   AuthPayload: ResolverTypeWrapper<AuthPayload>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Content: ResolverTypeWrapper<Content>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Mutation: ResolverTypeWrapper<{}>;
+  Operation: Operation;
   PostReplyInput: PostReplyInput;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   PostTwitInput: PostTwitInput;
   Query: ResolverTypeWrapper<{}>;
+  ReplyInput: ReplyInput;
   Twit: ResolverTypeWrapper<Twit>;
-  Float: ResolverTypeWrapper<Scalars['Float']>;
-  TwitContent: ResolverTypeWrapper<TwitContent>;
   TwitInput: TwitInput;
   User: ResolverTypeWrapper<User>;
   UserInput: UserInput;
@@ -215,15 +226,16 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   AuthPayload: AuthPayload;
   String: Scalars['String'];
+  Content: Content;
+  Float: Scalars['Float'];
   DateTime: Scalars['DateTime'];
   Mutation: {};
   PostReplyInput: PostReplyInput;
   ID: Scalars['ID'];
   PostTwitInput: PostTwitInput;
   Query: {};
+  ReplyInput: ReplyInput;
   Twit: Twit;
-  Float: Scalars['Float'];
-  TwitContent: TwitContent;
   TwitInput: TwitInput;
   User: User;
   UserInput: UserInput;
@@ -271,6 +283,12 @@ export type AuthPayloadResolvers<ContextType = any, ParentType extends Resolvers
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type ContentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Content'] = ResolversParentTypes['Content']> = {
+  operation?: Resolver<Maybe<ResolversTypes['Operation']>, ParentType, ContextType>;
+  number?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
@@ -289,17 +307,10 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 export type TwitResolvers<ContextType = any, ParentType extends ResolversParentTypes['Twit'] = ResolversParentTypes['Twit']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  content?: Resolver<ResolversTypes['TwitContent'], ParentType, ContextType>;
-  root?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  content?: Resolver<ResolversTypes['Content'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   replies?: Resolver<Array<ResolversTypes['Twit']>, ParentType, ContextType>;
   parent?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type TwitContentResolvers<ContextType = any, ParentType extends ResolversParentTypes['TwitContent'] = ResolversParentTypes['TwitContent']> = {
-  operation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  number?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -312,11 +323,11 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type Resolvers<ContextType = any> = {
   AuthPayload?: AuthPayloadResolvers<ContextType>;
+  Content?: ContentResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Twit?: TwitResolvers<ContextType>;
-  TwitContent?: TwitContentResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
 

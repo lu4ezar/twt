@@ -1,15 +1,14 @@
-import { Document, ObjectId, Types } from "mongoose";
-import { Scalars } from "../generated/graphql";
-import { IUser } from "./user.interface";
+import { Document, ObjectId, Types } from 'mongoose';
+import { Operation, Scalars } from '../generated/graphql';
+import { IUser } from './user.interface';
 
 export interface ITwit extends Document {
-  _id: Scalars["ID"];
-  author: IUser["id"];
+  _id: Scalars['ID'];
+  author: IUser['id'];
   content: {
-    operation: string;
+    operation: Operation;
     number: number;
   };
-  isRoot: boolean;
   createdAt: Date;
   replies: Types.DocumentArray<ITwit>;
   parent: ObjectId;

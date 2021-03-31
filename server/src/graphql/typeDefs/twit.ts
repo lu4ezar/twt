@@ -1,33 +1,38 @@
-import { gql } from "apollo-server-express";
+import { gql } from 'apollo-server-express';
 
 export default gql`
   scalar DateTime
   """
   Twit Type
   """
-  type TwitContent {
-    operation: String
+  enum Operation {
+    ADD
+    SUB
+    MULT
+    DIV
+  }
+
+  type Content {
+    operation: Operation
     number: Float!
   }
 
   type Twit {
     _id: ID!
     author: ID!
-    content: TwitContent!
-    root: Float
+    content: Content!
     createdAt: DateTime!
     replies: [Twit!]!
     parent: ID!
   }
 
   input TwitInput {
-    operation: String!
     number: Float!
   }
 
-  type Query {
-    twitts: [Twit!]!
-    replies(id: ID!): [Twit!]!
+  input ReplyInput {
+    operation: Operation!
+    number: Float!
   }
 
   input PostTwitInput {
@@ -37,9 +42,13 @@ export default gql`
 
   input PostReplyInput {
     author: ID!
-    root: ID!
     parent: ID!
-    content: TwitInput!
+    content: ReplyInput!
+  }
+
+  type Query {
+    twitts: [Twit!]!
+    replies(id: ID!): [Twit!]!
   }
 
   type Mutation {

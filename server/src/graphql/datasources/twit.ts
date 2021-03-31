@@ -14,25 +14,16 @@ export default class TwitAPI extends DataSource {
 
   // Queries
   async getTwitts(): Promise<Array<ITwit>> {
-    // console.log(this);
-    const res = await Twit.find({ root: null });
-
-    // console.log(res);
-    // .populate("repliesPopulated")
-    // .exec();
-    // res = await res;
-    // .exec(function (error: any, parents: any) {
-    //   console.log('error');
-    //   console.log(error);
-    //   console.log('parents');
-    //   console.log(parents);
-    //   /// parents.children is now an array of instances of Child.
-    // });
-    return [];
+    const twitts = await Twit.find({ parent: null });
+    return twitts;
   }
 
-  async getReplies(_id: ITwit['id']): Promise<ITwit> {
-    return (await Twit.find({ root: _id })) as ITwit;
+  async getReplies(_id: ITwit['id']): Promise<Array<ITwit>> {
+    const replies = await Twit.find({ parent: _id }).populate({
+      path: 'replies',
+      populate: { path: 'replies' },
+    });
+    return replies;
   }
 
   // Mutations
@@ -42,21 +33,11 @@ export default class TwitAPI extends DataSource {
   }
 
   async postReply(input: PostReplyInput): Promise<ITwit> {
-    // const twit = await Twit.find({ _id: input.parent });
     const reply = new Twit(input) as ITwit;
-    // twit.save(async (err: Error) => {
-    // if (err) {
-    // throw new Error(err.message);
-    // }
-    await reply.save();
-    // });
-    return reply;
-    // const twit = new Twit(input) as ITwit;
-    // return await twit.save();
-
-    // return await new Twit(input);
-    // return (await Twit.findOneAndUpdate({ _id: input.content }, input, {
-    //   new: true,
-    // })) as ITwit;
+    await Twit.findOneAndUpdate(
+      { _id: input.parent },
+      { $push: { replies: reply.id } },
+    );
+    return reply.save();
   }
 }
