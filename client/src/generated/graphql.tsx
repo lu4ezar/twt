@@ -28,18 +28,12 @@ export type Content = {
 export type Mutation = {
   __typename?: 'Mutation';
   postTwit: Twit;
-  postReply: Twit;
   loginUser: AuthPayload;
 };
 
 
 export type MutationPostTwitArgs = {
   input: PostTwitInput;
-};
-
-
-export type MutationPostReplyArgs = {
-  input: PostReplyInput;
 };
 
 
@@ -55,14 +49,9 @@ export enum Operation {
   Div = 'DIV'
 }
 
-export type PostReplyInput = {
-  author: Scalars['ID'];
-  parent: Scalars['ID'];
-  content: ReplyInput;
-};
-
 export type PostTwitInput = {
   author: Scalars['ID'];
+  parent?: Maybe<Scalars['ID']>;
   content: TwitInput;
 };
 
@@ -77,11 +66,6 @@ export type QueryRepliesArgs = {
   id: Scalars['ID'];
 };
 
-export type ReplyInput = {
-  operation: Operation;
-  number: Scalars['Float'];
-};
-
 export type Twit = {
   __typename?: 'Twit';
   _id: Scalars['ID'];
@@ -93,6 +77,7 @@ export type Twit = {
 };
 
 export type TwitInput = {
+  operation?: Maybe<Operation>;
   number: Scalars['Float'];
 };
 

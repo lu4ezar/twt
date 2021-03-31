@@ -3,7 +3,7 @@ import { DataSource } from 'apollo-datasource';
 import { Collection } from 'mongoose';
 import { ITwit } from '../../mongoose/twit.interface';
 import Twit from '../../mongoose/twit.model';
-import { PostReplyInput, PostTwitInput } from '../../generated/graphql';
+import { PostTwitInput } from '../../generated/graphql';
 
 export default class TwitAPI extends DataSource {
   collection: Collection;
@@ -30,15 +30,12 @@ export default class TwitAPI extends DataSource {
   // Mutations
   async postTwit(input: PostTwitInput): Promise<ITwit> {
     const twit = new Twit(input) as ITwit;
+    if (input.parent) {
+      await Twit.findOneAndUpdate(
+        { _id: input.parent },
+        { $push: { replies: twit.id } },
+      );
+    }
     return twit.save();
-  }
-
-  async postReply(input: PostReplyInput): Promise<ITwit> {
-    const reply = new Twit(input) as ITwit;
-    await Twit.findOneAndUpdate(
-      { _id: input.parent },
-      { $push: { replies: reply.id } },
-    );
-    return reply.save();
   }
 }

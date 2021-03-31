@@ -27,23 +27,14 @@ export default gql`
   }
 
   input TwitInput {
-    number: Float!
-  }
-
-  input ReplyInput {
-    operation: Operation!
+    operation: Operation
     number: Float!
   }
 
   input PostTwitInput {
     author: ID!
+    parent: ID
     content: TwitInput!
-  }
-
-  input PostReplyInput {
-    author: ID!
-    parent: ID!
-    content: ReplyInput!
   }
 
   type Query {
@@ -53,6 +44,5 @@ export default gql`
 
   type Mutation {
     postTwit(input: PostTwitInput!): Twit!
-    postReply(input: PostReplyInput!): Twit!
   }
 `;

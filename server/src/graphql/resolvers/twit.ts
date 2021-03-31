@@ -12,16 +12,6 @@ const resolvers: Resolvers = {
         author,
         content,
       }),
-    postReply: (
-      _,
-      { input: { author, parent, content } },
-      { dataSources },
-    ): Twit =>
-      dataSources.twitAPI.postReply({
-        author,
-        parent,
-        content,
-      }),
   },
 };
 

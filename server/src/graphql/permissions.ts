@@ -12,7 +12,6 @@ const permissions = shield({
   Mutation: {
     loginUser: allow,
     postTwit: isAuthenticated,
-    postReply: isAuthenticated,
   },
 });
 

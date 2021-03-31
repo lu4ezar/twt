@@ -38,18 +38,12 @@ export type Content = {
 export type Mutation = {
   __typename?: 'Mutation';
   postTwit: Twit;
-  postReply: Twit;
   loginUser: AuthPayload;
 };
 
 
 export type MutationPostTwitArgs = {
   input: PostTwitInput;
-};
-
-
-export type MutationPostReplyArgs = {
-  input: PostReplyInput;
 };
 
 
@@ -65,14 +59,9 @@ export enum Operation {
   Div = 'DIV'
 }
 
-export type PostReplyInput = {
-  author: Scalars['ID'];
-  parent: Scalars['ID'];
-  content: ReplyInput;
-};
-
 export type PostTwitInput = {
   author: Scalars['ID'];
+  parent?: Maybe<Scalars['ID']>;
   content: TwitInput;
 };
 
@@ -87,11 +76,6 @@ export type QueryRepliesArgs = {
   id: Scalars['ID'];
 };
 
-export type ReplyInput = {
-  operation: Operation;
-  number: Scalars['Float'];
-};
-
 export type Twit = {
   __typename?: 'Twit';
   _id: Scalars['ID'];
@@ -103,6 +87,7 @@ export type Twit = {
 };
 
 export type TwitInput = {
+  operation?: Maybe<Operation>;
   number: Scalars['Float'];
 };
 
@@ -209,11 +194,9 @@ export type ResolversTypes = {
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Mutation: ResolverTypeWrapper<{}>;
   Operation: Operation;
-  PostReplyInput: PostReplyInput;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   PostTwitInput: PostTwitInput;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Query: ResolverTypeWrapper<{}>;
-  ReplyInput: ReplyInput;
   Twit: ResolverTypeWrapper<Twit>;
   TwitInput: TwitInput;
   User: ResolverTypeWrapper<User>;
@@ -230,11 +213,9 @@ export type ResolversParentTypes = {
   Float: Scalars['Float'];
   DateTime: Scalars['DateTime'];
   Mutation: {};
-  PostReplyInput: PostReplyInput;
-  ID: Scalars['ID'];
   PostTwitInput: PostTwitInput;
+  ID: Scalars['ID'];
   Query: {};
-  ReplyInput: ReplyInput;
   Twit: Twit;
   TwitInput: TwitInput;
   User: User;
@@ -295,7 +276,6 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   postTwit?: Resolver<ResolversTypes['Twit'], ParentType, ContextType, RequireFields<MutationPostTwitArgs, 'input'>>;
-  postReply?: Resolver<ResolversTypes['Twit'], ParentType, ContextType, RequireFields<MutationPostReplyArgs, 'input'>>;
   loginUser?: Resolver<ResolversTypes['AuthPayload'], ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'input'>>;
 };
 
