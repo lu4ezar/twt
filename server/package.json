@@ -58,7 +58,7 @@
 		"eslint-plugin-import": "2.26.0",
 		"eslint-plugin-jest": "24.7.0",
 		"eslint-plugin-node": "11.1.0",
-		"eslint-plugin-prettier": "3.3.1",
+		"eslint-plugin-prettier": "3.4.1",
 		"graphql-query-test-mock": "0.12.1",
 		"jest": "26.6.3",
 		"jest-each": "26.6.2",
