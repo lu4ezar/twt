@@ -43,7 +43,7 @@
 		"@graphql-codegen/typescript-document-nodes": "2.2.13",
 		"@graphql-codegen/typescript-mongodb": "2.3.11",
 		"@graphql-codegen/typescript-resolvers": "2.6.6",
-		"@shelf/jest-mongodb": "3.0.1",
+		"@shelf/jest-mongodb": "3.0.2",
 		"@types/bcryptjs": "2.4.2",
 		"@types/jsonwebtoken": "8.5.8",
 		"@types/node": "16.11.42",
