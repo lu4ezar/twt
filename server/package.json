@@ -38,11 +38,11 @@
 		"typescript": "^4.2.3"
 	},
 	"devDependencies": {
-		"@graphql-codegen/cli": "2.7.0",
-		"@graphql-codegen/typescript": "2.6.0",
-		"@graphql-codegen/typescript-document-nodes": "2.2.14",
-		"@graphql-codegen/typescript-mongodb": "2.3.12",
-		"@graphql-codegen/typescript-resolvers": "2.6.7",
+		"@graphql-codegen/cli": "2.8.0",
+		"@graphql-codegen/typescript": "2.7.0",
+		"@graphql-codegen/typescript-document-nodes": "2.3.0",
+		"@graphql-codegen/typescript-mongodb": "2.4.0",
+		"@graphql-codegen/typescript-resolvers": "2.7.0",
 		"@shelf/jest-mongodb": "3.0.2",
 		"@types/bcryptjs": "2.4.2",
 		"@types/jsonwebtoken": "8.5.8",
