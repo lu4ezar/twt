@@ -47,12 +47,12 @@
 		]
 	},
 	"devDependencies": {
-		"@graphql-codegen/cli": "2.11.3",
-		"@graphql-codegen/typescript": "2.7.2",
-		"@graphql-codegen/typescript-document-nodes": "2.3.2",
-		"@graphql-codegen/typescript-graphql-files-modules": "2.2.0",
-		"@graphql-codegen/typescript-operations": "2.5.2",
-		"@graphql-codegen/typescript-react-apollo": "3.3.2",
+		"@graphql-codegen/cli": "2.11.5",
+		"@graphql-codegen/typescript": "2.7.3",
+		"@graphql-codegen/typescript-document-nodes": "2.3.3",
+		"@graphql-codegen/typescript-graphql-files-modules": "2.2.1",
+		"@graphql-codegen/typescript-operations": "2.5.3",
+		"@graphql-codegen/typescript-react-apollo": "3.3.3",
 		"@types/react-modal": "3.13.1"
 	}
 }
