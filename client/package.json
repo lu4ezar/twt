@@ -8,7 +8,7 @@
 		"@testing-library/jest-dom": "5.16.5",
 		"@testing-library/react": "13.4.0",
 		"@types/node": "16.11.58",
-		"@types/jest": "29.0.0",
+		"@types/jest": "29.0.1",
 		"@types/react-dom": "18.0.6",
 		"@types/react": "18.0.19",
 		"formik": "2.2.9",
