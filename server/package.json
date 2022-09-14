@@ -46,7 +46,7 @@
 		"@shelf/jest-mongodb": "4.1.0",
 		"@types/bcryptjs": "2.4.2",
 		"@types/jsonwebtoken": "8.5.9",
-		"@types/node": "16.11.58",
+		"@types/node": "16.11.59",
 		"@typescript-eslint/eslint-plugin": "5.37.0",
 		"@typescript-eslint/parser": "5.37.0",
 		"apollo-server-testing": "2.25.3",
