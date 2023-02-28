@@ -48,7 +48,7 @@
 		"@types/jsonwebtoken": "9.0.0",
 		"@typescript-eslint/eslint-plugin": "5.53.0",
 		"@typescript-eslint/parser": "5.53.0",
-		"@types/node": "16.18.12",
+		"@types/node": "16.18.13",
 		"apollo-server-testing": "2.25.3",
 		"eslint-config-airbnb-base": "15.0.0",
 		"eslint": "8.35.0",
