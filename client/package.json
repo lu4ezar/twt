@@ -53,6 +53,6 @@
 		"@graphql-codegen/typescript-graphql-files-modules": "2.2.1",
 		"@graphql-codegen/typescript-operations": "3.0.3",
 		"@graphql-codegen/typescript-react-apollo": "3.3.7",
-		"@types/react-modal": "3.13.1"
+		"@types/react-modal": "3.16.0"
 	}
 }
