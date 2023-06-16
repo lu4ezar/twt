@@ -7,11 +7,11 @@
 		"@testing-library/user-event": "14.4.3",
 		"@testing-library/jest-dom": "5.16.5",
 		"@testing-library/react": "14.0.0",
-		"@types/node": "16.18.36",
+		"@types/node": "18.16.18",
 		"@types/jest": "29.5.2",
 		"@types/react-dom": "18.2.5",
 		"@types/react": "18.2.12",
-		"formik": "2.4.1",
+		"formik": "2.4.2",
 		"graphql": "16.6.0",
 		"jwt-decode": "3.1.2",
 		"react": "18.2.0",
@@ -47,11 +47,11 @@
 		]
 	},
 	"devDependencies": {
-		"@graphql-codegen/cli": "3.3.1",
-		"@graphql-codegen/typescript": "3.0.4",
-		"@graphql-codegen/typescript-document-nodes": "3.0.4",
+		"@graphql-codegen/cli": "4.0.1",
+		"@graphql-codegen/typescript": "4.0.0",
+		"@graphql-codegen/typescript-document-nodes": "4.0.0",
 		"@graphql-codegen/typescript-graphql-files-modules": "2.2.1",
-		"@graphql-codegen/typescript-operations": "3.0.4",
+		"@graphql-codegen/typescript-operations": "4.0.0",
 		"@graphql-codegen/typescript-react-apollo": "3.3.7",
 		"@types/react-modal": "3.16.0"
 	}
