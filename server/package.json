@@ -34,7 +34,7 @@
 		"jsonwebtoken": "^9.0.0",
 		"rimraf": "^4.4.0",
 		"mongodb": "^5.0.0",
-		"mongoose": "^5.12.2",
+		"mongoose": "^7.0.0",
 		"typescript": "^5.0.0"
 	},
 	"devDependencies": {
