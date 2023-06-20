@@ -39,10 +39,10 @@
 	},
 	"devDependencies": {
 		"@graphql-codegen/cli": "4.0.1",
-		"@graphql-codegen/typescript": "4.0.0",
-		"@graphql-codegen/typescript-document-nodes": "4.0.0",
+		"@graphql-codegen/typescript": "4.0.1",
+		"@graphql-codegen/typescript-document-nodes": "4.0.1",
 		"@graphql-codegen/typescript-mongodb": "2.4.6",
-		"@graphql-codegen/typescript-resolvers": "4.0.0",
+		"@graphql-codegen/typescript-resolvers": "4.0.1",
 		"@shelf/jest-mongodb": "4.1.7",
 		"@types/bcryptjs": "2.4.2",
 		"@types/jsonwebtoken": "9.0.2",
